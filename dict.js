@@ -22,11 +22,11 @@ function hideLoading() {
 }
 
 function showResults(data) {
+    if($('#results p').length > 0) $('#results').empty();
+    let wordtype = '';
     if(data.success == false) {
         alert(data.message);
     } else {
-        if($('#results p').length > 0) $('#results').empty();
-        let wordtype = '';
         $.each(data.data, function(index, item) {
             wordtype = item.wordtype ? '(' + item.wordtype + ')' : '';
             $('#results').append('<p>' + (index + 1) + wordtype + ' :: ' + item.definition + '</p>');
@@ -35,5 +35,5 @@ function showResults(data) {
 }
 
 function noResult(error) {
-    alert(JSON.stringify(error));
+    alert(error);
 }
