@@ -11,8 +11,8 @@ function fetchResults() {
             term: $("#term").val()
         },
         dataType: "json",
-        "success": showResults,
-        "error": noResult,
+        "success": showAnswers,
+        "error": noAnswer,
         "complete": hideLoading
     });
 }
@@ -21,12 +21,12 @@ function hideLoading() {
     $('#loading').hide();
 }
 
-function showResults(data) {
+function showAnswers(data) {
+    if($('#results p').length > 0) $('#results').empty();
+    let wordtype = '';
     if(data.success == false) {
         alert(data.message);
     } else {
-        if($('#results p').length > 0) $('#results').empty();
-        let wordtype = '';
         $.each(data.data, function(index, item) {
             wordtype = item.wordtype ? '(' + item.wordtype + ')' : '';
             $('#results').append('<p>' + (index + 1) + wordtype + ' :: ' + item.definition + '</p>');
@@ -34,6 +34,6 @@ function showResults(data) {
     }
 }
 
-function noResult(error) {
-    alert(JSON.stringify(error));
+function noAnswer(error) {
+    alert(error);
 }
