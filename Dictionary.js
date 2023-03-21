@@ -10,11 +10,11 @@ http.createServer(function (req, res) {
         'Access-Control-Allow-Headers':'application/json',
     };
     var q = url.parse(req.url, true);
-    if (q.pathname=="/lookup.js") {
+    if (q.pathname=="/lookup") {
         wordmod.lookup(req, res, q.query)
     } else {
         res.writeHead(404, headers);
-        // return res.end(JSON.stringify({ error: "404 Not Found" }));
+        res.write(JSON.stringify({success: false, message: "404 Not Found"}));
         return res.end();
     }
 }).listen(8081);

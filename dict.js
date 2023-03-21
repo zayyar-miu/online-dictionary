@@ -1,18 +1,18 @@
 $(document).ready(function () {
-    $("#lookup_button").click(fetchAnswers);
+    $("#lookup_button").click(fetchResults);
 });
 
-function fetchAnswers() {
+function fetchResults() {
     $('#loading').show();
     $.ajax({
-        url: "http://localhost:8081/lookup.js",
+        url: "http://localhost:8081/lookup",
         type: "GET",
         data: { 
             term: $("#term").val()
         },
         dataType: "json",
-        "success": showAnswers,
-        "error": noAnswer,
+        "success": showResults,
+        "error": noResult,
         "complete": hideLoading
     });
 }
@@ -21,16 +21,19 @@ function hideLoading() {
     $('#loading').hide();
 }
 
-function showAnswers(data) {
-    console.log('Hi! ' + data);
-    if($('#results p').length > 0) $('#results').empty();
-    let wordtype = '';
-    $.each(data, function(index, item) {
-        wordtype = item.wordtype ? '(' + item.wordtype + ')' : '';
-        $('#results').append('<p>' + (index + 1) + wordtype + ' :: ' + item.definition + '</p>');
-    });
+function showResults(data) {
+    if(data.success == false) {
+        alert(data.message);
+    } else {
+        if($('#results p').length > 0) $('#results').empty();
+        let wordtype = '';
+        $.each(data.data, function(index, item) {
+            wordtype = item.wordtype ? '(' + item.wordtype + ')' : '';
+            $('#results').append('<p>' + (index + 1) + wordtype + ' :: ' + item.definition + '</p>');
+        });
+    }
 }
 
-function noAnswer(error) {
+function noResult(error) {
     alert(JSON.stringify(error));
 }
