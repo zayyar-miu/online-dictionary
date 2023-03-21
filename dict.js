@@ -3,18 +3,23 @@ $(document).ready(function () {
 });
 
 function fetchResults() {
-    $('#loading').show();
-    $.ajax({
-        url: "http://localhost:8081/lookup",
-        type: "GET",
-        data: { 
-            term: $("#term").val()
-        },
-        dataType: "json",
-        "success": showAnswers,
-        "error": noAnswer,
-        "complete": hideLoading
-    });
+    if($("#term").val()) {
+        $('#loading').show();
+        $.ajax({
+            url: "http://localhost:8081/lookup",
+            type: "GET",
+            data: { 
+                term: $("#term").val()
+            },
+            dataType: "json",
+            "success": showResults,
+            "error": noResult,
+            "complete": hideLoading
+        });
+    } else {
+        if($('#results p').length > 0) $('#results').empty();
+        $('#results').append('<p>No definitions found!</p>');
+    }
 }
 
 function hideLoading() {
