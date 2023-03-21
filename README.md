@@ -1,6 +1,6 @@
 # online-dictionary
 
-An online library system build with html, css, nodeJS, jQuery
+An online library system build with HTML, CSS, JavaScript, jQuery, Node.js, AJAX, SQL, and JSON
 
 # 3 different implementations
 
