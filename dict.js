@@ -26,7 +26,7 @@ function hideLoading() {
     $('#loading').hide();
 }
 
-function showAnswers(data) {
+function showResults(data) {
     if($('#results p').length > 0) $('#results').empty();
     let wordtype = '';
     if(data.success == false) {
@@ -39,6 +39,6 @@ function showAnswers(data) {
     }
 }
 
-function noAnswer(error) {
+function noResult(error) {
     alert(error);
 }
